@@ -384,12 +384,12 @@ l</code></pre>
 ## 
 ## $summary
 ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -3.13657 -0.72726 -0.05125 -0.03457  0.61336  2.87664</code></pre>
+## -2.94375 -0.67987  0.01982  0.01628  0.75558  3.53079</code></pre>
 <pre class="r"><code>l$vec_numeric</code></pre>
 <pre><code>## [1] 5 6 7 8</code></pre>
 <pre class="r"><code>l$summary</code></pre>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -3.13657 -0.72726 -0.05125 -0.03457  0.61336  2.87664</code></pre>
+## -2.94375 -0.67987  0.01982  0.01628  0.75558  3.53079</code></pre>
 <pre class="r"><code>l[[2]]</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]    1    3    5    7
@@ -403,14 +403,14 @@ l</code></pre>
   d = rnorm(20, -3, 1)
 )
 df$a</code></pre>
-<pre><code>##  [1] 3.257923 2.113984 3.544763 2.694403 3.421857 4.532400 2.140495
-##  [8] 4.346811 2.167854 3.307795 3.687491 2.532494 3.696747 3.695865
-## [15] 2.289607 3.744980 3.121376 4.010688 2.329954 3.158119</code></pre>
+<pre><code>##  [1] 3.812147 4.049044 1.905143 3.223380 4.196104 4.864052 1.335850
+##  [8] 4.029351 3.142357 1.862479 1.987385 4.384239 1.739009 4.390591
+## [15] 2.140850 3.247296 2.094696 1.754218 3.057531 3.446043</code></pre>
 <pre class="r"><code>df[[2]]</code></pre>
-<pre><code>##  [1]  1.32015179  4.87574214  5.62583331  0.09320974  5.32262092
-##  [6]  2.87686753 -1.10152479 -4.27148533 -3.94588258 -2.10326071
-## [11] -8.35080021  6.22054869 -4.80211883  0.03088051 -3.70997314
-## [16] -2.28442655  0.63278516 -4.85075614 -5.09117488 -3.21292546</code></pre>
+<pre><code>##  [1] -3.8877250 -4.0488236  0.4125856 -0.1357370  3.1316651 -3.8754453
+##  [7] -4.0837504 -5.6473513  1.3399161 -4.2034027  4.2532005  0.5492277
+## [13]  5.3919185 -3.4291914  9.7184114  0.7341143  2.9536608  0.9233445
+## [19]  3.1500121 -3.2064823</code></pre>
 <pre class="r"><code>mean_and_sd = function(x) {
   
   if (!is.numeric(x)) {
@@ -431,22 +431,22 @@ df$a</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  3.19 0.748</code></pre>
+## 1  3.03  1.10</code></pre>
 <pre class="r"><code>mean_and_sd(df[[2]])</code></pre>
 <pre><code>## # A tibble: 1 x 2
-##     mean    sd
-##    &lt;dbl&gt; &lt;dbl&gt;
-## 1 -0.836  4.17</code></pre>
+##      mean    sd
+##     &lt;dbl&gt; &lt;dbl&gt;
+## 1 0.00201  4.03</code></pre>
 <pre class="r"><code>mean_and_sd(df[[3]])</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  9.95 0.139</code></pre>
+## 1  10.0 0.216</code></pre>
 <pre class="r"><code>mean_and_sd(df[[4]])</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 -2.91  1.04</code></pre>
+## 1 -2.81  1.11</code></pre>
 <div id="for-loop" class="section level2">
 <h2>for loop</h2>
 <pre class="r"><code>output = vector(&quot;list&quot;, length = 4)</code></pre>
@@ -460,25 +460,25 @@ output</code></pre>
 ## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  3.19 0.748
+## 1  3.03  1.10
 ## 
 ## [[2]]
 ## # A tibble: 1 x 2
-##     mean    sd
-##    &lt;dbl&gt; &lt;dbl&gt;
-## 1 -0.836  4.17
+##      mean    sd
+##     &lt;dbl&gt; &lt;dbl&gt;
+## 1 0.00201  4.03
 ## 
 ## [[3]]
 ## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  9.95 0.139
+## 1  10.0 0.216
 ## 
 ## [[4]]
 ## # A tibble: 1 x 2
 ##    mean    sd
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 -2.91  1.04</code></pre>
+## 1 -2.81  1.11</code></pre>
 <pre class="r"><code>output = map(df,mean_and_sd)
 
 output_median = map(df, median)
@@ -488,7 +488,123 @@ output_summary = map(df, summary)
 output_median = map_dbl(df,median)
 
 output = map_dfr(df, mean_and_sd)
+
+output = map(df, ~mean_and_sd(.x))
+ ## ~ .x: explicit on things we are operating on. 
+
  ## dfr: data frame row</code></pre>
+</div>
+<div id="napolean" class="section level2">
+<h2>napolean!!</h2>
+<pre class="r"><code>library(rvest)
+
+read_page_reviews = function(url) {
+  
+  h = read_html(url)
+  
+  title = h %&gt;%
+    html_nodes(&quot;#cm_cr-review_list .review-title&quot;) %&gt;%
+    html_text()
+  
+  stars = h %&gt;%
+    html_nodes(&quot;#cm_cr-review_list .review-rating&quot;) %&gt;%
+    html_text() %&gt;%
+    str_extract(&quot;\\d&quot;) %&gt;%
+    as.numeric()
+  
+  text = h %&gt;%
+    html_nodes(&quot;.review-data:nth-child(5)&quot;) %&gt;%
+    html_text()
+  
+  data_frame(title, stars, text)
+}</code></pre>
+<pre class="r"><code>url_base = &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=&quot;
+vec_urls = str_c(url_base, 1:5)
+
+vec_urls </code></pre>
+<pre><code>## [1] &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=1&quot;
+## [2] &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=2&quot;
+## [3] &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=3&quot;
+## [4] &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=4&quot;
+## [5] &quot;https://www.amazon.com/product-reviews/B00005JNBQ/ref=cm_cr_arp_d_viewopt_rvwer?ie=UTF8&amp;reviewerType=avp_only_reviews&amp;sortBy=recent&amp;pageNumber=5&quot;</code></pre>
+<pre class="r"><code>read_page_reviews(vec_urls[[1]])</code></pre>
+<pre><code>## # A tibble: 10 x 3
+##    title                     stars text                                    
+##    &lt;chr&gt;                     &lt;dbl&gt; &lt;chr&gt;                                   
+##  1 &quot;Good comedy\n          …     4 &quot;Not as funny as I remember years ago. …
+##  2 &quot;Awesome\n            &quot;       5 &quot;Favorite movie of all time\n          …
+##  3 &quot;yes\n            &quot;           5 &quot;good\n            &quot;                    
+##  4 &quot;Gotta watch it!\n      …     5 &quot;Super fun cult film. A must-see! Funni…
+##  5 &quot;Great movie\n          …     5 &quot;Love this movie.\n            &quot;        
+##  6 &quot;Duh\n            &quot;           5 &quot;Best movie ever\n            &quot;         
+##  7 &quot;Great video\n          …     5 &quot;Product as described.  Great transacti…
+##  8 &quot;Give me some of your to…     5 &quot;This movie will always be my favorite …
+##  9 &quot;Nostalgic\n            &quot;     5 &quot;One of the best nostalgic movies of my…
+## 10 &quot;Make you giggle type mo…     5 &quot;I love, love, love this movie.  It mak…</code></pre>
+<pre class="r"><code>read_page_reviews(vec_urls[[2]])</code></pre>
+<pre><code>## # A tibble: 10 x 3
+##    title                         stars text                                
+##    &lt;chr&gt;                         &lt;dbl&gt; &lt;chr&gt;                               
+##  1 &quot;This movie is so stupid.\n …     5 &quot;No, really.  It's so stupid.  Your…
+##  2 &quot;Hilarious\n            &quot;         5 &quot;Hilarious\n            &quot;           
+##  3 &quot;Waste of money\n           …     1 &quot;Terrible movie! Please don’t waste…
+##  4 &quot;Good movie\n            &quot;        5 &quot;Funny\n            &quot;               
+##  5 &quot;A classic\n            &quot;         5 &quot;I like your sleeves. They're real …
+##  6 &quot;FRIKKEN SWEET MOVIE, GAWSH.…     5 &quot;It’s Napolean Dynamite. It’s charm…
+##  7 &quot;You gonna eat the rest of y…     5 &quot;One of my favorite movies ever.  Y…
+##  8 &quot;Tina you fat lard come get …     5 &quot;It's a great movie\n            &quot;  
+##  9 &quot;Great family movie\n       …     5 &quot;My kids as well as the adults love…
+## 10 &quot;Teens love it\n            &quot;     5 &quot;Original and funny\n            &quot;</code></pre>
+<pre class="r"><code>read_page_reviews(vec_urls[[3]])</code></pre>
+<pre><code>## # A tibble: 10 x 3
+##    title                       stars text                                  
+##    &lt;chr&gt;                       &lt;dbl&gt; &lt;chr&gt;                                 
+##  1 &quot;Great\n            &quot;           5 &quot;Funny\n            &quot;                 
+##  2 &quot;Great Movie, Bad Packagin…     4 &quot;First off, the stick-on label on the…
+##  3 &quot;jeez napoleon\n          …     5 &quot;gosh\n            &quot;                  
+##  4 &quot;👍\n            &quot;              5 &quot;👍\n            &quot;                    
+##  5 &quot;A classic!\n            &quot;      5 &quot;A classic movie.  Hilarious!\n      …
+##  6 &quot;A must own\n            &quot;      5 &quot;Great movie\n            &quot;           
+##  7 &quot;If you like 80s ...you mu…     5 &quot;My all time favorite movie. I have w…
+##  8 &quot;🤘\n            &quot;              5 &quot;🤘\n            &quot;                    
+##  9 &quot;Super Slow Mooovie...\n  …     1 &quot;Too slow and too damn quiet... My gi…
+## 10 &quot;Awesome!\n            &quot;        5 &quot;Love this movie !\n            &quot;</code></pre>
+<pre class="r"><code>read_page_reviews(vec_urls[[4]])</code></pre>
+<pre><code>## # A tibble: 10 x 3
+##    title                           stars text                              
+##    &lt;chr&gt;                           &lt;dbl&gt; &lt;chr&gt;                             
+##  1 &quot;Very funny\n            &quot;          4 &quot;Very funny\n            &quot;        
+##  2 &quot;Eat your food tina\n         …     5 &quot;Cant go wrong\n            &quot;     
+##  3 &quot;Dumb funny\n            &quot;          5 &quot;Dumb funny\n            &quot;        
+##  4 &quot;Annoying! Not in a good way.\…     1 &quot;I know that I am one of the very…
+##  5 &quot;Fun\n            &quot;                 5 &quot;Fun\n            &quot;               
+##  6 &quot;such a great movie\n         …     5 &quot;a true comedy classic\n         …
+##  7 &quot;Napoleon Dud\n            &quot;        3 &quot;Not impressed w/movie.\n        …
+##  8 &quot;Five stars\n            &quot;          5 &quot;Such a weird, awesome movie\n   …
+##  9 &quot;Fun!\n            &quot;                5 &quot;Great movie\n            &quot;       
+## 10 &quot;Funny movie- bravo for Amazon…     5 &quot;My son loves this movie, so I wa…</code></pre>
+<pre class="r"><code>read_page_reviews(vec_urls[[5]])</code></pre>
+<pre><code>## # A tibble: 10 x 3
+##    title                        stars text                                 
+##    &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;                                
+##  1 &quot;Movie\n            &quot;            5 &quot;Movie\n            &quot;                
+##  2 &quot;Funny movie, quotable line…     5 &quot;My kids quote this movie all the ti…
+##  3 &quot;Great for teenagers!\n    …     5 &quot;My students loved this movie.\n    …
+##  4 &quot;can't believe we fell for …     1 &quot;a pretty lame movie--can't believe …
+##  5 &quot;shut up tina you fat lard.…     5 &quot;i LOVE napoleon.\n            &quot;     
+##  6 &quot;Laughter is the Best Medic…     5 &quot;FAST SHIPPING! Love this Movie! Lau…
+##  7 &quot;New condition\n           …     5 &quot;Classic for the kids to watch.\n   …
+##  8 &quot;Napoleon, give me some of …     5 &quot;Cul\n            &quot;                  
+##  9 &quot;Yes rent\n            &quot;         5 &quot;Always an amazing movie, classic!\n…
+## 10 &quot;Cult classic.\n           …     5 &quot;I should’ve bought this movie a lon…</code></pre>
+<pre class="r"><code>output = vector(&quot;list&quot;, length = 5)
+
+for (i in 1:5) {
+  output[[i]] = read_page_reviews((vec_urls[[i]]))
+}
+
+## with map: 
+output = map(vec_urls, read_page_reviews)</code></pre>
 </div>
 
 
